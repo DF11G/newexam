@@ -24,7 +24,7 @@ class BasicRoute extends Component {
                 <Switch>
                     <Page>
                         <Route
-                            path='/' exact component={Login}
+                            path='/login' exact component={Login}
                         ></Route>
                         <Route
                             path='/register' component={Register}

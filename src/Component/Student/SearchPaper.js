@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import Axios from 'axios'
 import { Row, Col, Input, Button, PageHeader, Statistic, Form } from 'antd';
 import "antd/dist/antd.css"
 import '../Common/Common.css'
+import * as AJAX from '../../Util/Ajax'
 
 const { Search } = Input;
 
@@ -18,30 +18,45 @@ class SearchPaper extends Component {
     }
 
     searchPaperRequest = (code) => {
-        Axios.get('/exam/paper/getByCode?code=' + code).then((res) => {
-            if (res.data.code === 1) {
+        AJAX.GET('/exam/paper/getByCode?code=' + code, (res) => {
+            this.setState({
+                paper: res.data.object
+            })
+            if (res.data.object.state === 2 || res.data.object.state === 3) {
                 this.setState({
-                    paper: res.data.object
+                    isUseful: 1
                 })
-                if (res.data.object.state === 2 || res.data.object.state === 3) {
-                    this.setState({
-                        isUseful: 1
-                    })
-                } else {
-                    this.setState({
-                        isUseful: 0
-                    })
-                }
-            } else if (res.data.code === 5) {
-                alert('没找到此试卷')
-            } else if (res.data.code === 6) {
-                alert('重新登录')
             } else {
-                alert('请求错误')
+                this.setState({
+                    isUseful: 0
+                })
             }
-        }).catch(() => {
-            alert('服务器错误')
         })
+
+        // Axios.get('/exam/paper/getByCode?code=' + code).then((res) => {
+        //     if (res.data.code === 1) {
+        //         this.setState({
+        //             paper: res.data.object
+        //         })
+        //         if (res.data.object.state === 2 || res.data.object.state === 3) {
+        //             this.setState({
+        //                 isUseful: 1
+        //             })
+        //         } else {
+        //             this.setState({
+        //                 isUseful: 0
+        //             })
+        //         }
+        //     } else if (res.data.code === 5) {
+        //         alert('没找到此试卷')
+        //     } else if (res.data.code === 6) {
+        //         alert('重新登录')
+        //     } else {
+        //         alert('请求错误')
+        //     }
+        // }).catch(() => {
+        //     alert('服务器错误')
+        // })
     }
 
     onSearch = (value) => {

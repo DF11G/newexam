@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from "react-router-dom";
-import Axios from 'axios'
 import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
 import "antd/dist/antd.css"
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import store from '../../Store/Index'
 import { handleGetUserInfAction } from '../../Store/ActionCreators'
 import '.././Common/Common.css'
-// import { ajaxReturn } from '../../Ajax'
+import * as AJAX from '../../Util/Ajax'
 class Login extends Component {
 
   constructor(props) {
@@ -28,24 +27,17 @@ class Login extends Component {
   }
 
   onFinish = (values) => {
-    var a = this
-    Axios.post('/exam/user/loginCheck', {
+    AJAX.POST('/exam/user/loginCheck', { //这里是URL和数据
       "account": values.account,
       "password": values.password
-    }).then((res) => {
-      // ajaxReturn(res.data.code, () => {
-      //   const action = handleGetUserInfAction(res.data.object, res.data.code)
-      //   store.dispatch(action)
-      //   console.log(res)
-      //   console.log(this)
-      //   if (res.data.object.type === 1) {
-      //     this.props.history.push('/papersList')
-      //   } else {
-      //     this.props.history.push('/searchPaper')
-      //   }
-      // })
-    }).catch(() => {
-      alert('服务器错误')
+    }, (res) => {//这里是需要执行的方法
+      const action = handleGetUserInfAction(res.data.object, res.data.code)
+      store.dispatch(action)
+      if (res.data.object.type === 1) {
+        this.props.history.push('/papersList')
+      } else {
+        this.props.history.push('/searchPaper')
+      }
     })
   }
 
@@ -69,6 +61,11 @@ class Login extends Component {
             name="account"
             rules={[
               {
+                min: 8,
+                max: 32,
+                message: '账号长度在8-32位!'
+              },
+              {
                 required: true,
                 message: '请输入您的账号!',
               },
@@ -79,6 +76,11 @@ class Login extends Component {
           <Form.Item
             name="password"
             rules={[
+              {
+                min: 8,
+                max: 32,
+                message: '密码长度在8-32位!'
+              },
               {
                 required: true,
                 message: '请输入您的密码!',
@@ -107,7 +109,7 @@ class Login extends Component {
             Or <Link to="register">立即注册!</Link>
           </Form.Item>
         </Form>
-      </div>
+      </div >
     )
   }
 }

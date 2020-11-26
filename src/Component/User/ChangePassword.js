@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "antd/dist/antd.css"
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 import { withRouter } from "react-router-dom"
 import { Form, Input, Button, PageHeader } from 'antd';
 import "./ChangePassword.css"
@@ -17,24 +17,14 @@ class ChangePassword extends Component {
 
   onFinish = (values) => {
     console.log('Received values of form: ', values);
-    Axios.post('/exam/user/changePassword', {
+    AJAX.POST('/exam/user/changePassword', {
       account: values.account,
       oldPassword: values.oldPassword,
       newPassword: values.newPassword
-    }).then((res) => {
-      if (res.data.code === 1) {
-        const action = handleUserLogout()
-        store.dispatch(action)
-        this.props.history.push('/login')
-        alert('修改成功')
-      } else if (res.code === 7) {
-        alert('账号不存在或密码错误')
-      } else {
-        console.log(res)
-        alert('请求错误')
-      }
-    }).catch(() => {
-      alert('服务器错误')
+    }, (res) => {
+      const action = handleUserLogout()
+      store.dispatch(action)
+      this.props.history.push('/login')
     })
   };
 
@@ -56,7 +46,17 @@ class ChangePassword extends Component {
           <Form.Item
             name="account"
             label="账号"
-            rules={[{ required: true, message: '请输入账号' }]}
+            rules={[
+              {
+                min: 8,
+                max: 32,
+                message: '账号长度在8-32位!'
+              },
+              {
+                required: true,
+                message: '请输入账号'
+              }
+            ]}
           >
             <Input />
           </Form.Item>
@@ -64,7 +64,17 @@ class ChangePassword extends Component {
           <Form.Item
             name="oldPassword"
             label="原密码"
-            rules={[{ required: true, message: '请输入原密码!' }]}
+            rules={[
+              {
+                min: 8,
+                max: 32,
+                message: '密码长度在8-32位!'
+              },
+              {
+                required: true,
+                message: '请输入密码'
+              }
+            ]}
             hasFeedback
           >
             <Input.Password />
@@ -73,7 +83,17 @@ class ChangePassword extends Component {
           <Form.Item
             name="newPassword"
             label="新密码"
-            rules={[{ required: true, message: '请输入新密码!' }]}
+            rules={[
+              {
+                min: 8,
+                max: 32,
+                message: '新密码长度在8-32位!'
+              },
+              {
+                required: true,
+                message: '请输入新密码'
+              }
+            ]}
             hasFeedback
           >
             <Input.Password />
@@ -85,6 +105,11 @@ class ChangePassword extends Component {
             dependencies={['newPassword']}
             hasFeedback
             rules={[
+              {
+                min: 8,
+                max: 32,
+                message: '新密码长度在8-32位!'
+              },
               {
                 required: true,
                 message: '请再次确认新密码!',

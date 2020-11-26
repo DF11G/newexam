@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Button, Modal, Form, Radio, Input, Tag, Upload } from 'antd';
 import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 import '../Common/Common.css'
 
 const CHOICE_PROBLEM_TYPE = 1
@@ -37,25 +37,38 @@ class CreateProblem extends Component {
         } else {
             url = '/addProblem'
         }
-        Axios.put('/exam/paper' + url, {
+
+        AJAX.PUT('/exam/paper' + url, {
             paperId: this.props.paperId,
             polymerizationProblemId: this.props.polymerizationProblemId,
             title: values.title,
             material: values.material,
             type: values.type,
             answer: JSON.stringify(this.state.collection)
-        }).then((res) => {
-            if (res.data.code === 1) {
-                this.props.refreshProblems()
-                this.props.visibleChange()
-            } else if (res.data.code === 5) {
-                alert('没有')
-            } else {
-                alert('请求错误')
-            }
-        }).catch(() => {
-            alert('服务器错误')
+        }, (res) => {
+            this.props.refreshProblems()
+            this.props.visibleChange()
         })
+
+        // Axios.put('/exam/paper' + url, {
+        //     paperId: this.props.paperId,
+        //     polymerizationProblemId: this.props.polymerizationProblemId,
+        //     title: values.title,
+        //     material: values.material,
+        //     type: values.type,
+        //     answer: JSON.stringify(this.state.collection)
+        // }).then((res) => {
+        //     if (res.data.code === 1) {
+        //         this.props.refreshProblems()
+        //         this.props.visibleChange()
+        //     } else if (res.data.code === 5) {
+        //         alert('没有')
+        //     } else {
+        //         alert('请求错误')
+        //     }
+        // }).catch(() => {
+        //     alert('服务器错误')
+        // })
     }
 
     handleOk = () => {

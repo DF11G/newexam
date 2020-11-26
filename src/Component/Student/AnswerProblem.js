@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import Axios from 'axios'
-import { PageHeader, Statistic, Row, Input, Radio, Form, Button } from 'antd';
+import * as AJAX from '../../Util/Ajax'
+import { PageHeader, Statistic, Row, Input, Radio, Form, Button, message } from 'antd';
 import "antd/dist/antd.css"
 import '../Common/Common.css'
 
@@ -43,61 +43,39 @@ class AnswerProblem extends Component {
     }
 
     getPaperAnswerRequest = (paperAnswerId) => {
-        Axios.get('/exam/answer/getPaperAnswerDetail?paperAnswerId=' + paperAnswerId).then((res) => {
-            if (res.data.code === 1) {
-                this.setState({
-                    paperAnswer: res.data.object,
-                    remainTime: res.data.object.paper.time * 60 - res.data.object.totalTime
-                })
-                //根据答卷获取当前作答的题目
-                this.getProblemRequest(res.data.object)
-            } else if (res.data.code === 5) {
-                alert('没找到此试卷')
-            } else if (res.data.code === 6) {
-                alert('重新登录')
-            } else {
-                alert('请求错误')
-            }
-        }).catch(() => {
-            alert('服务器错误')
+        AJAX.GET('/exam/answer/getPaperAnswerDetail?paperAnswerId=' + paperAnswerId, (res) => {
+            this.setState({
+                paperAnswer: res.data.object,
+                remainTime: res.data.object.paper.time * 60 - res.data.object.totalTime
+            })
+            //根据答卷获取当前作答的题目
+            this.getProblemRequest(res.data.object)
         })
     }
 
     getProblemRequest = (paperAnswer) => {
-        Axios.get('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswer.id).then((res) => {
-            if (res.data.code === 1) {
-                if (res.data.object != null) {
-                    this.setState({
-                        answeringProblem: res.data.object,
-                        totalTime: 0,
-                        editTime: 0,
-                        isEdit: false
-                    })
-                } else {
-                    alert('作答结束')
-                }
+        AJAX.GET('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswer.id, (res) => {
+            if (res.data.object != null) {
+                this.setState({
+                    answeringProblem: res.data.object,
+                    totalTime: 0,
+                    editTime: 0,
+                    isEdit: false
+                })
             } else {
-                alert('请求错误')
+                message.warning('This is a warning message')
             }
-        }).catch(() => {
-            alert('服务器错误')
         })
     }
 
     submitAnswerRequest = (answer) => {
-        Axios.put('/exam/answer/submitAnswer', {
+        AJAX.PUT('/exam/answer/submitAnswer', {
             paperAnswerId: this.props.history.location.paperAnswerId,
             totalTime: this.state.totalTime,
             editTime: this.state.editTime,
             answer: answer
-        }).then((res) => {
-            if (res.data.code === 1) {
-                this.getProblemRequest(this.state.paperAnswer)
-            } else {
-                alert('请求错误')
-            }
-        }).catch(() => {
-            alert('服务器错误')
+        }, (res) => {
+            this.getProblemRequest(this.state.paperAnswer)
         })
     }
 

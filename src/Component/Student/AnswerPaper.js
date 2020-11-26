@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 import { PageHeader, Form, Input, Button, Descriptions } from 'antd';
 import "antd/dist/antd.css"
 import '../Common/Common.css'
@@ -18,24 +18,14 @@ class AnswerPaper extends Component {
     }
 
     createPaperAnswerRequest = (paperId, collectionAnswer) => {
-        Axios.put('/exam/answer/createPaperAnswer', {
+        AJAX.PUT('/exam/answer/createPaperAnswer', {
             paperId: paperId,
             collectionAnswer: JSON.stringify(collectionAnswer)
-        }).then((res) => {
-            if (res.data.code === 1) {
-                this.props.history.push({
-                    pathname: '/answerProblem',
-                    paperAnswerId: res.data.object.id
-                })
-            } else if (res.data.code === 5) {
-                alert('没找到此试卷')
-            } else if (res.data.code === 6) {
-                alert('重新登录')
-            } else {
-                alert('请求错误')
-            }
-        }).catch(() => {
-            alert('服务器错误')
+        }, (res) => {
+            this.props.history.push({
+                pathname: '/answerProblem',
+                paperAnswerId: res.data.object.id
+            })
         })
     }
 

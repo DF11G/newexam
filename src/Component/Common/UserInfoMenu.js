@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from "react-router-dom"
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 import { Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import "antd/dist/antd.css"
@@ -10,18 +10,25 @@ import { handleUserLogout } from '../../Store/ActionCreators'
 
 function LoginMenu(props) {
   let logout = () => {
-    Axios.get('/exam/user/logout').then((res) => {
-      if (res.data.code === 1) {
-        const action = handleUserLogout()
-        store.dispatch(action)
-        props.history.push('/login')
-      } else {
-        alert('请求错误')
-      }
-    }).catch((e) => {
-      alert(e)
+    AJAX.GET('/exam/user/logout', (res) => {
+      const action = handleUserLogout()
+      store.dispatch(action)
+      props.history.push('/login')
     })
-  };
+
+    // Axios.get('/exam/user/logout').then((res) => {
+    //   console.log(res)
+    //   if (res.data.code === 101) {
+    //     const action = handleUserLogout()
+    //     store.dispatch(action)
+    //     props.history.push('/login')
+    //   } else {
+    //     alert('请求错误')
+    //   }
+    // }).catch((e) => {
+    //   alert(e)
+    // })
+  }
   let teacherMenu = (
     <Menu>
       <Menu.Item>

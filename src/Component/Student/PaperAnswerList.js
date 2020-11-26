@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Table, PageHeader, Tag } from 'antd';
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 
 import '../Common/Common.css'
 
@@ -19,20 +19,27 @@ class PaperAnswerList extends Component {
   }
 
   getPaperAnswersRequest() {
-    Axios.get('/exam/answer/getPaperAnswers').then((res) => {
-      if (res.data.code === 1) {
-        this.setState({
-          data: res.data.object
-        })
-        console.log(res.data.object)
-      } else if (res.data.code === 6) {
-        alert('重新登录')
-      } else {
-        alert('请求错误')
-      }
-    }).catch(() => {
-      alert('服务器错误')
+    AJAX.GET('/exam/answer/getPaperAnswers', (res) => {
+      this.setState({
+        data: res.data.object
+      })
+      console.log(res.data.object)
     })
+
+    // Axios.get('/exam/answer/getPaperAnswers').then((res) => {
+    //   if (res.data.code === 1) {
+    //     this.setState({
+    //       data: res.data.object
+    //     })
+    //     console.log(res.data.object)
+    //   } else if (res.data.code === 6) {
+    //     alert('重新登录')
+    //   } else {
+    //     alert('请求错误')
+    //   }
+    // }).catch(() => {
+    //   alert('服务器错误')
+    // })
   }
 
   columns = [

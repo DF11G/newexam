@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, withRouter } from "react-router-dom";
 import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
-import Axios from 'axios'
+import * as AJAX from '../../Util/Ajax'
 import '../Common/Common.css'
 
 const CREATING = 1;
@@ -24,38 +24,52 @@ class PapersList extends Component {
   }
 
   getPapersListRequest() {
-    Axios.get('/exam/paper/get').then((res) => {
-      if (res.data.code === 1) {
-        this.setState({
-          data: res.data.object
-        })
-        this.setState({
-          deletePaper: null,
-        });
-      } else if (res.data.code === 6) {
-        alert('重新登录')
-      } else {
-        alert('请求错误')
-      }
-    }).catch(() => {
-      alert('服务器错误')
+    AJAX.GET('/exam/paper/get', (res) => {
+      this.setState({
+        data: res.data.object
+      })
+      this.setState({
+        deletePaper: null,
+      })
     })
+
+    // Axios.get('/exam/paper/get').then((res) => {
+    //   if (res.data.code === 1) {
+    //     this.setState({
+    //       data: res.data.object
+    //     })
+    //     this.setState({
+    //       deletePaper: null,
+    //     });
+    //   } else if (res.data.code === 6) {
+    //     alert('重新登录')
+    //   } else {
+    //     alert('请求错误')
+    //   }
+    // }).catch(() => {
+    //   alert('服务器错误')
+    // })
   }
 
   deletePaperRequest() {
-    Axios.delete('/exam/paper/delete?paperId=' + this.state.deletePaper.id)
-      .then((res) => {
-        if (res.data.code === 1) {
-          message.success('删除成功！')
-          this.getPapersListRequest()
-        } else if (res.data.code === 6) {
-          alert('重新登录')
-        } else {
-          alert('请求错误')
-        }
-      }).catch(() => {
-        alert('服务器错误')
-      })
+    AJAX.DELETE('/exam/paper/delete?paperId=' + this.state.deletePaper.id, (res) => {
+      message.success('删除成功！')
+      this.getPapersListRequest()
+    })
+
+    // Axios.delete('/exam/paper/delete?paperId=' + this.state.deletePaper.id)
+    //   .then((res) => {
+    //     if (res.data.code === 1) {
+    //       message.success('删除成功！')
+    //       this.getPapersListRequest()
+    //     } else if (res.data.code === 6) {
+    //       alert('重新登录')
+    //     } else {
+    //       alert('请求错误')
+    //     }
+    //   }).catch(() => {
+    //     alert('服务器错误')
+    //   })
   }
 
 
@@ -111,22 +125,29 @@ class PapersList extends Component {
                   newState = ANSWERING
                 }
               }
-              Axios.post('/exam/paper/changePaperState', {
+              AJAX.POST('/exam/paper/changePaperState', {
                 paperId: record.id,
                 state: newState
+              }, (res) => {
+                message.success('变更成功！')
               })
-                .then((res) => {
-                  if (res.data.code === 1) {
-                    message.success('变更成功！')
-                  } else if (res.data.code === 6) {
-                    alert('重新登录')
-                  } else {
-                    alert('请求错误')
-                  }
-                }).catch(() => {
-                  alert('服务器错误')
-                  this.getPapersListRequest()
-                })
+
+              // Axios.post('/exam/paper/changePaperState', {
+              //   paperId: record.id,
+              //   state: newState
+              // })
+              //   .then((res) => {
+              //     if (res.data.code === 1) {
+              //       message.success('变更成功！')
+              //     } else if (res.data.code === 6) {
+              //       alert('重新登录')
+              //     } else {
+              //       alert('请求错误')
+              //     }
+              //   }).catch(() => {
+              //     alert('服务器错误')
+              //     this.getPapersListRequest()
+              //   })
             }}
           />
         );
