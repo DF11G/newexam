@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Page from './Page'
+import Login from '../Component/User/Login'
+import Register from '../Component/User/Register'
+import ChangePassword from '../Component/User/ChangePassword'
+import CreatePaper from '../Component/Teacher/CreatePaper'
+import PapersList from '../Component/Teacher/PapersList'
+import EditProblem from '../Component/Teacher/EditProblem'
+import SearchPaper from '../Component/Student/SearchPaper'
+import AnswerPaper from '../Component/Student/AnswerPaper'
+import AnswerProblem from '../Component/Student/AnswerProblem'
+import PaperAnswerList from '../Component/Student/PaperAnswerList'
 
 class BasicRoute extends Component {
 
@@ -13,7 +23,7 @@ class BasicRoute extends Component {
             <BrowserRouter>
                 <Switch>
                     <Page>
-                        {/* <Route
+                        <Route
                             path='/login' component={Login}
                         ></Route>
                         <Route
@@ -42,7 +52,7 @@ class BasicRoute extends Component {
                         ></Route>
                         <Route
                             path='/paperAnswerList' component={PaperAnswerList}
-                        ></Route> */}
+                        ></Route>
                     </Page>
                 </Switch>
             </BrowserRouter>

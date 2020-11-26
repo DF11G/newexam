@@ -4,10 +4,10 @@ import Axios from 'axios'
 import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
 import "antd/dist/antd.css"
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import store from '../Store/Index'
-import { handleGetUserInfAction } from '../Store/ActionCreators'
-import '../Common.css'
-import { ajaxReturn } from '../../Ajax'
+import store from '../../Store/Index'
+import { handleGetUserInfAction } from '../../Store/ActionCreators'
+import '.././Common/Common.css'
+// import { ajaxReturn } from '../../Ajax'
 class Login extends Component {
 
   constructor(props) {
@@ -33,31 +33,17 @@ class Login extends Component {
       "account": values.account,
       "password": values.password
     }).then((res) => {
-      ajaxReturn(res.data.code, () => {
-        const action = handleGetUserInfAction(res.data.object, res.data.code)
-        store.dispatch(action)
-        console.log(res)
-        console.log(this)
-        if (res.data.object.type === 1) {
-          this.props.history.push('/papersList')
-        } else {
-          this.props.history.push('/searchPaper')
-        }
-      })
-      // if (res.data.code === 1) {
+      // ajaxReturn(res.data.code, () => {
       //   const action = handleGetUserInfAction(res.data.object, res.data.code)
       //   store.dispatch(action)
       //   console.log(res)
+      //   console.log(this)
       //   if (res.data.object.type === 1) {
       //     this.props.history.push('/papersList')
       //   } else {
       //     this.props.history.push('/searchPaper')
       //   }
-      // } else if (res.data.code === 3) {
-      //   alert('账户名密码错误')
-      // } else {
-      //   alert('请求错误')
-      // }
+      // })
     }).catch(() => {
       alert('服务器错误')
     })

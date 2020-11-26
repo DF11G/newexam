@@ -5,19 +5,17 @@ import { withRouter } from "react-router-dom"
 import { Form, Input, Tooltip, Button, Select, PageHeader } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import "./Register.css"
-import '../Common.css'
-import store from '../Store/Index'
-import { handleGetUserInfAction } from '../Store/ActionCreators'
+import '.././Common/Common.css'
+import store from '../../Store/Index'
+import { handleGetUserInfAction } from '../../Store/ActionCreators'
 const { Option } = Select
-
-
 
 class Register extends Component {
 
   constructor(props) {
-      super(props)
+    super(props)
   }
-  
+
   onFinish = (values) => {
     console.log('Received values of form: ', values);
     Axios.put('/exam/user/register', {
@@ -32,12 +30,12 @@ class Register extends Component {
         this.props.history.push('/main')
         alert('注册成功')
       } else if (res.code === 4) {
-          alert('账号重复')
+        alert('账号重复')
       } else {
-          alert('请求错误')
+        alert('请求错误')
       }
     }).catch(() => {
-        alert('服务器错误')
+      alert('服务器错误')
     })
   };
 
@@ -46,9 +44,9 @@ class Register extends Component {
       <div className="register">
 
         <PageHeader
-            className="site-page-header"
-            onBack={() => this.props.history.goBack()}
-            title="注册"
+          className="site-page-header"
+          onBack={() => this.props.history.goBack()}
+          title="注册"
         />
 
         <Form
@@ -61,20 +59,20 @@ class Register extends Component {
           <Form.Item
             name="account"
             label="账号"
-            rules={[{ required: true, message: '请输入账号'}]}
+            rules={[{ required: true, message: '请输入账号' }]}
           >
             <Input />
           </Form.Item>
-    
+
           <Form.Item
             name="password"
             label="密码"
-            rules={[{ required: true, message: '请输入密码!'}]}
+            rules={[{ required: true, message: '请输入密码!' }]}
             hasFeedback
           >
             <Input.Password />
           </Form.Item>
-    
+
           <Form.Item
             name="confirm"
             label="再次输入密码"
@@ -97,7 +95,7 @@ class Register extends Component {
           >
             <Input.Password />
           </Form.Item>
-    
+
           <Form.Item
             name="name"
             label={
@@ -112,7 +110,7 @@ class Register extends Component {
           >
             <Input />
           </Form.Item>
-        
+
           <Form.Item
             name="type"
             label={

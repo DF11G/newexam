@@ -4,8 +4,8 @@ import Axios from 'axios'
 import { Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import "antd/dist/antd.css"
-import store from '../Store/Index'
-import { handleUserLogout } from '../Store/ActionCreators'
+import store from '../../Store/Index'
+import { handleUserLogout } from '../../Store/ActionCreators'
 
 
 function LoginMenu(props) {
@@ -63,9 +63,9 @@ function LoginMenu(props) {
     </Menu>
   );
   let menu;
-  if(props.type === 1) {
+  if (props.type === 1) {
     menu = teacherMenu
-  } else if(props.type === 2) {
+  } else if (props.type === 2) {
     menu = studentMenu
   } else {
     menu = null
@@ -88,7 +88,7 @@ function NotLoginMenu() {
 }
 
 class UserInfoMenu extends Component {
-  
+
   constructor(props) {
     super(props)
   }

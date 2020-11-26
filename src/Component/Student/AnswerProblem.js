@@ -3,9 +3,9 @@ import { withRouter } from "react-router-dom";
 import Axios from 'axios'
 import { PageHeader, Statistic, Row, Input, Radio, Form, Button } from 'antd';
 import "antd/dist/antd.css"
-import '../Common.css'
+import '../Common/Common.css'
 
-import ProblemShow from '../problem/ProblemShow'
+import ProblemShow from './ProblemShow'
 const { TextArea } = Input;
 
 class AnswerProblem extends Component {

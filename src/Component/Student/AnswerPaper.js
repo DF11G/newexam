@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import Axios from 'axios'
 import { PageHeader, Form, Input, Button, Descriptions } from 'antd';
 import "antd/dist/antd.css"
-import '../Common.css'
+import '../Common/Common.css'
 
 class AnswerPaper extends Component {
 

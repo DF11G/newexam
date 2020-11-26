@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom"
 import { Layout } from 'antd';
 import "antd/dist/antd.css"
-// import UserInfoMenu from './Components/userInfo/UserInfoMenu'
+import UserInfoMenu from '../Component/Common/UserInfoMenu'
 import Axios from 'axios'
-// import store from './Components/Store/Index'
-// import { handleGetUserInfAction } from './Components/Store/ActionCreators'
+import store from '../Store/Index'
+import { handleGetUserInfAction } from '../Store/ActionCreators'
 import './Page.css'
 
 const { Header, Content, Footer } = Layout;
@@ -19,13 +19,13 @@ class Page extends Component {
             type: null
         }
         this.handleStoreChange = this.handleStoreChange.bind(this)
-        // store.subscribe(this.handleStoreChange)
+        store.subscribe(this.handleStoreChange)
     }
 
     handleStoreChange() {
         this.setState({
-            // name: store.getState().name,
-            // type: store.getState().type
+            name: store.getState().name,
+            type: store.getState().type
         })
     }
 
@@ -33,8 +33,8 @@ class Page extends Component {
         let needNotLoginpages = new Set(['/login', '/changePassword', '/register'])
         Axios.get('/exam/user/getUserDetail').then((res) => {
             if (res.data.code === 1) {
-                // const action = handleGetUserInfAction(res.data.object, res.data.code)
-                // store.dispatch(action)
+                const action = handleGetUserInfAction(res.data.object, res.data.code)
+                store.dispatch(action)
             } else if (res.data.code === 6) {
                 if (!needNotLoginpages.has(this.props.history.location.pathname)) {
                     this.props.history.push('/login')
@@ -55,7 +55,7 @@ class Page extends Component {
                         <div className="logo">
                         </div>
                         <div className="page-menu">
-                            {/* <UserInfoMenu name={this.state.name} type={this.state.type} history={this.props.history}></UserInfoMenu> */}
+                            <UserInfoMenu name={this.state.name} type={this.state.type} history={this.props.history}></UserInfoMenu>
                         </div>
                     </Header>
                     <Content style={{ padding: '0 50px' }}>

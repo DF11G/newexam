@@ -4,7 +4,7 @@ import { Button, Modal, Form, Radio, Input, Tag, Upload } from 'antd';
 import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
 import Axios from 'axios'
-import '../Common.css'
+import '../Common/Common.css'
 
 const CHOICE_PROBLEM_TYPE = 1
 const MATERIAL_PROBLEM_TYPE = 2

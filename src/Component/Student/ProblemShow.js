@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Row } from 'antd';
 import "antd/dist/antd.css"
-import '../Common.css'
+import '../Common/Common.css'
 
 class ProblemShow extends Component {
 

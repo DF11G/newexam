@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Redirect, withRouter } from "react-router-dom";
 import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
 import Axios from 'axios'
-
-import '../Common.css'
+import '../Common/Common.css'
 
 const CREATING = 1;
 const READY_TO_ANSWERING = 2;
@@ -81,11 +80,11 @@ class PapersList extends Component {
           isChecked = false
           unCheckedName = "创建中"
           checkedName = "允许作答"
-        } else if(state === READY_TO_ANSWERING) {
+        } else if (state === READY_TO_ANSWERING) {
           isChecked = true
           unCheckedName = "创建中"
           checkedName = "允许作答"
-        } else if(state === ANSWERING) {
+        } else if (state === ANSWERING) {
           isChecked = true
           checkedName = "作答中"
           unCheckedName = "停止作答"
@@ -100,13 +99,13 @@ class PapersList extends Component {
             onChange={(checked, event) => {
               let newState
               if (state === CREATING || state === READY_TO_ANSWERING) {
-                if(!checked) {
+                if (!checked) {
                   newState = CREATING
                 } else {
                   newState = READY_TO_ANSWERING
                 }
               } else {
-                if(!checked) {
+                if (!checked) {
                   newState = END_ANSWER
                 } else {
                   newState = ANSWERING

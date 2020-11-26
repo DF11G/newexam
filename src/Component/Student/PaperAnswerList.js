@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Table, PageHeader, Tag } from 'antd';
 import Axios from 'axios'
 
-import '../Common.css'
+import '../Common/Common.css'
 
 class PaperAnswerList extends Component {
 

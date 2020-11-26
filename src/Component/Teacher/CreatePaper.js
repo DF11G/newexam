@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Input, PageHeader, InputNumber, Form, Tag, Button, Modal } from 'antd';
 import "antd/dist/antd.css"
 import Axios from 'axios'
-import '../Common.css'
+import '../Common/Common.css'
 
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;

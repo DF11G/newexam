@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Collapse, PageHeader, Button, Checkbox } from 'antd';
 import "antd/dist/antd.css"
 import Axios from 'axios'
-import '../Common.css'
+import '../Common/Common.css'
 import CreateProblem from './CreateProblem'
 import { DeleteOutlined } from '@ant-design/icons';
 
