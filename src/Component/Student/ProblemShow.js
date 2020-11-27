@@ -28,32 +28,13 @@ class ProblemShow extends Component {
         )
     }
 
-    polymerizationProblemShow = (props) => {
-        if(props.polymerizationProblem == null) return null
-        let polymerizationProblem = props.polymerizationProblem
-        return (
-            <div>
-                <Row>
-                    {'第'+polymerizationProblem.sort+'题'}
-                </Row>
-                <Row>
-                    {polymerizationProblem.title}
-                </Row>
-                <Row>
-                    {polymerizationProblem.material}
-                </Row>
-            </div>
-        )
-    }
-
-
     render() {
         if(this.props.problem == null) {
             return null
         } else {
             return(
                 <div>
-                    <this.polymerizationProblemShow polymerizationProblem={this.props.problem.polymerizationProblem}/>
+                    <this.problemShow problem={this.props.problem.fatherProblem}/>
                     <this.problemShow problem={this.props.problem}/>
                 </div>
             );

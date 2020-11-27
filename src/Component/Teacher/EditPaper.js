@@ -4,19 +4,20 @@ import { Collapse, PageHeader, Button, Checkbox } from 'antd';
 import "antd/dist/antd.css"
 import * as AJAX from '../../Util/Ajax'
 import '../Common/Common.css'
-import CreateProblem from './CreateProblem'
+import CreateProblem from './AddProblem'
 import { DeleteOutlined } from '@ant-design/icons';
+import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../Enum/ProblemTypeEnum'
 
 const { Panel } = Collapse;
 
-class EditProblem extends Component {
+class EditPaper extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             visible: false,
             paper: null,
-            polymerizationProblemId: null
+            fatherProblemId: null
         }
     }
 
@@ -35,50 +36,13 @@ class EditProblem extends Component {
                 paper: res.data.object
             })
         })
-
-        // Axios.get('/exam/paper/getByPaperId?paperId=' + this.props.history.location.paperId).then((res) => {
-        //     if (res.data.code === 1) {
-        //         console.log(res.data.object)
-        //         this.setState({
-        //             paper: res.data.object
-        //         })
-        //     } else if (res.data.code === 5) {
-        //         alert('没有')
-        //     } else {
-        //         alert('请求错误')
-        //     }
-        // }).catch(() => {
-        //     alert('服务器错误')
-        // })
     }
 
     deleteProblemRequest = (paperId, problem) => {
-        let url
-        if (problem.type != null) {
-            url = '/exam/paper/deleteProblem?paperId=' + paperId + '&problemId=' + problem.id
-        } else {
-            url = '/exam/paper/deletePolymerizationProblem?paperId=' + paperId + '&polymerizationProblemId=' + problem.id
-        }
-
+        let url = '/exam/paper/deleteProblem?paperId=' + paperId + '&problemId=' + problem.id
         AJAX.DELETE(url, (res) => {
-            this.setState({
-                paper: res.data.object
-            })
+            this.getProblemsRequest()
         })
-
-        // Axios.delete(url).then((res) => {
-        //     if (res.data.code === 1) {
-        //         this.setState({
-        //             paper: res.data.object
-        //         })
-        //     } else if (res.data.code === 5) {
-        //         alert('没有')
-        //     } else {
-        //         alert('请求错误')
-        //     }
-        // }).catch(() => {
-        //     alert('服务器错误')
-        // })
     }
 
     deleteButton = (problem) => (
@@ -93,21 +57,19 @@ class EditProblem extends Component {
     }
 
     handleOk = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });
     };
 
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });
     };
 
-    polymerizationProblemList = (polymerizationProblem) => {
-        let problems = polymerizationProblem.problems
+    subProblemList = (fatherProblem) => {
+        let subProblems = fatherProblem.subProblems
         let other = (problem) => {
             if (problem.type === 1) {
                 let choices = JSON.parse(problem.answer)
@@ -116,7 +78,7 @@ class EditProblem extends Component {
                 return null;
             }
         }
-        let problemList = problems.map((problem) =>
+        let problemList = subProblems.map((problem) =>
             <Panel header={'第' + problem.sort + '题'} key={problem.sort} extra={this.deleteButton(problem)}>
                 <h1>{problem.title}</h1>
                 <p>{problem.material}</p>
@@ -131,7 +93,7 @@ class EditProblem extends Component {
                 <Button className="content-button" type="primary" onClick={() => {
                     this.setState({
                         visible: true,
-                        polymerizationProblemId: polymerizationProblem.id
+                        fatherProblemId: fatherProblem.id
                     })
                 }}>创建新试题</Button>
             </div>
@@ -143,13 +105,13 @@ class EditProblem extends Component {
     problemList = () => {
         if (this.state.paper != null) {
             let problems = this.state.paper.problems
-            problems = problems.concat(this.state.paper.polymerizationProblems)
+            console.log(problems)
             let other = (problem) => {
-                if (problem.type === 1) {
+                if (problem.type === CHOICE_PROBLEM) {
                     let choices = JSON.parse(problem.answer)
                     return choices.map((choice) => <Checkbox>{choice}</Checkbox>);
-                } else if (problem.type == null) {
-                    return this.polymerizationProblemList(problem);
+                } else if (problem.type == FATHER_PROBLEM) {
+                    return this.subProblemList(problem);
                 }
             }
             let listItem = problems.map((problem) =>
@@ -181,13 +143,13 @@ class EditProblem extends Component {
                 <Button className="content-button" type="primary" onClick={() => {
                     this.setState({
                         visible: true,
-                        polymerizationProblemId: null
+                        fatherProblemId: null
                     })
                 }}>创建新试题</Button>
                 <CreateProblem
                     visible={this.state.visible}
                     paperId={this.props.history.location.paperId}
-                    polymerizationProblemId={this.state.polymerizationProblemId}
+                    fatherProblemId={this.state.fatherProblemId}
                     visibleChange={() => {
                         this.setState({
                             visible: !this.state.visible
@@ -201,4 +163,4 @@ class EditProblem extends Component {
 
 }
 
-export default withRouter(EditProblem)
+export default withRouter(EditPaper)

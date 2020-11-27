@@ -5,7 +5,7 @@ import { PageHeader, Form, Input, Button, Descriptions } from 'antd';
 import "antd/dist/antd.css"
 import '../Common/Common.css'
 
-class AnswerPaper extends Component {
+class CreatePaperAnswer extends Component {
 
     constructor(props) {
         super(props)
@@ -46,7 +46,6 @@ class AnswerPaper extends Component {
         if (props.paper == null) {
             return null
         } else {
-            console.log(JSON.parse(props.paper.collection))
             let formItems = JSON.parse(props.paper.collection).map((item) => {
                 return (
                     <Form.Item
@@ -63,13 +62,12 @@ class AnswerPaper extends Component {
                     </Form.Item>
                 )
             })
-            let onFinish = (value) => {
-                this.createPaperAnswerRequest(props.paper.id, value)
-            }
             return (
                 <Form
                     name="collection_form"
-                    onFinish={onFinish}
+                    onFinish={(value) => {
+                        this.createPaperAnswerRequest(props.paper.id, value)
+                    }}
                 >
                     {formItems}
                     <Form.Item>
@@ -91,9 +89,7 @@ class AnswerPaper extends Component {
                     title="作答试卷"
                 />
                 <Form
-                    name="login_login"
                     className="login-form"
-                    onFinish={this.onFinish}
                 >
                     <this.showPaperInfo
                         paper={this.props.history.location.paper}
@@ -108,4 +104,4 @@ class AnswerPaper extends Component {
 }
 
 
-export default withRouter(AnswerPaper)
+export default withRouter(CreatePaperAnswer)

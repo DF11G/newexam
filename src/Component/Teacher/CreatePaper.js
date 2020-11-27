@@ -22,7 +22,7 @@ class CreatePaper extends Component {
   }
 
   onFinish = (values) => {
-    AJAX.PUT('/exam/paper/create', {
+    AJAX.PUT('/exam/paper/createPaper', {
       "title": values.title,
       "introduction": values.introduction,
       "time": values.time,
@@ -33,26 +33,6 @@ class CreatePaper extends Component {
           modalVisible: true
         })
     })
-
-    // Axios.put('/exam/paper/create', {
-    //   "title": values.title,
-    //   "introduction": values.introduction,
-    //   "time": values.time,
-    //   "collection": JSON.stringify(this.state.collection)
-    // }).then((res) => {
-    //   if (res.data.code === 1) {
-    //     this.setState({
-    //       paperId: res.data.object.id,
-    //       modalVisible: true
-    //     })
-    //   } else if (res.data.code === 6) {
-    //     alert('重新登录')
-    //   } else {
-    //     alert('请求错误')
-    //   }
-    // }).catch(() => {
-    //   alert('服务器错误')
-    // })
   }
 
   handleClose = removedTag => {
@@ -92,7 +72,7 @@ class CreatePaper extends Component {
       modalVisible: false,
     })
     this.props.history.push({
-      pathname: '/editProblem',
+      pathname: '/editPaper',
       paperId: this.state.paperId
     })
   }
@@ -101,7 +81,7 @@ class CreatePaper extends Component {
     this.setState({
       modalVisible: false,
     })
-    this.props.history.push("/papersList")
+    this.props.history.push("/paperList")
   }
 
   forMap = tag => {

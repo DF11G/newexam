@@ -17,12 +17,10 @@ class Register extends Component {
   }
 
   onFinish = (values) => {
-    console.log('Received values of form: ', values);
     AJAX.PUT('/exam/user/register', {
       account: values.account,
       password: values.password,
-      name: values.name,
-      type: values.type
+      name: values.name
     }, (res) => {
       const action = handleGetUserInfAction(res.data.object, res.data.code)
       store.dispatch(action)
@@ -125,24 +123,6 @@ class Register extends Component {
             rules={[{ required: true, message: '请输入您的真实姓名!' }]}
           >
             <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="type"
-            label={
-              <span>
-                账号类型&nbsp;
-                <Tooltip title="学生只能答题/老师只能出题">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
-            rules={[{ required: true, message: '请选择账号类型!' }]}
-          >
-            <Select placeholder="请选择您的账号类型">
-              <Option value="2">学生</Option>
-              <Option value="1">教师</Option>
-            </Select>
           </Form.Item>
 
           <Form.Item>

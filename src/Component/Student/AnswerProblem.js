@@ -6,6 +6,7 @@ import "antd/dist/antd.css"
 import '../Common/Common.css'
 
 import ProblemShow from './ProblemShow'
+import '../../Enum/ProblemTypeEnum'
 const { TextArea } = Input;
 
 class AnswerProblem extends Component {
@@ -13,13 +14,12 @@ class AnswerProblem extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            totalTime: 0,
+            answeringProblem: null,
+            startTime: null,
+            firstEditTime: null,
             editTime: 0,
             isEdit: false,
-            isEditTime: 0,
-            remainTime: 100,
-            paperAnswer: null,
-            answeringProblem: null
+            isEditTime: 0
         }
     }
 
@@ -57,9 +57,9 @@ class AnswerProblem extends Component {
         AJAX.GET('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswer.id, (res) => {
             if (res.data.object != null) {
                 this.setState({
+                    startTime: new Date.now(),
                     answeringProblem: res.data.object,
-                    totalTime: 0,
-                    editTime: 0,
+                    firstEditTime: null,
                     isEdit: false
                 })
             } else {
@@ -71,8 +71,10 @@ class AnswerProblem extends Component {
     submitAnswerRequest = (answer) => {
         AJAX.PUT('/exam/answer/submitAnswer', {
             paperAnswerId: this.props.history.location.paperAnswerId,
-            totalTime: this.state.totalTime,
+            startTime: this.state.startTime,
+            firstEditTime: this.state.firstEditTime,
             editTime: this.state.editTime,
+            submitTime: new Date.now(),
             answer: answer
         }, (res) => {
             this.getProblemRequest(this.state.paperAnswer)
@@ -80,10 +82,6 @@ class AnswerProblem extends Component {
     }
 
     tick() {
-        this.setState({
-            totalTime: this.state.totalTime + 1,
-            remainTime: this.state.remainTime - 1
-        });
         if (this.state.isEdit) {
             if (this.state.isEditTime >= 4) {
                 this.setState({
@@ -119,6 +117,11 @@ class AnswerProblem extends Component {
                                 isEdit: true,
                                 isEditTime: 0
                             })
+                            if(this.state.firstEditTime == null) {
+                                this.setState({
+                                    firstEditTime: new Date.now()
+                                })
+                            }
                         }}
                     ></TextArea>
                 </div>
@@ -156,24 +159,8 @@ class AnswerProblem extends Component {
                     onBack={() => this.props.history.goBack()}
                     title="试卷答题"
                     subTitle="测试试卷"
-                >
-                    <Row>
-                        <Statistic title="剩余时间" value={this.state.remainTime + '秒'} />
-                        <Statistic
-                            title="此题用时"
-                            value={this.state.totalTime + '秒'}
-                            style={{
-                                margin: '0 32px',
-                            }}
-                        />
-                        <Statistic title="作答用时" value={this.state.editTime + '秒'} />
-                    </Row>
-                </PageHeader>
-                <Form
-                    name="login_login"
-                    className="login-form"
-                    onFinish={this.onFinish}
-                >
+                />
+                <Form>
                     <ProblemShow problem={this.state.answeringProblem} />
                     <this.problemAnswerForm problem={this.state.answeringProblem} />
                 </Form>

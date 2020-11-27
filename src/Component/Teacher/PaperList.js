@@ -3,13 +3,9 @@ import { Redirect, withRouter } from "react-router-dom";
 import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
 import * as AJAX from '../../Util/Ajax'
 import '../Common/Common.css'
+import {CREATING, READY_TO_ANSWERING, ANSWERING, END_ANSWER} from '../../Enum/PaperStateEnum'
 
-const CREATING = 1;
-const READY_TO_ANSWERING = 2;
-const ANSWERING = 3;
-const END_ANSWER = 4;
-
-class PapersList extends Component {
+class PaperList extends Component {
 
   constructor(props) {
     super(props)
@@ -32,23 +28,6 @@ class PapersList extends Component {
         deletePaper: null,
       })
     })
-
-    // Axios.get('/exam/paper/get').then((res) => {
-    //   if (res.data.code === 1) {
-    //     this.setState({
-    //       data: res.data.object
-    //     })
-    //     this.setState({
-    //       deletePaper: null,
-    //     });
-    //   } else if (res.data.code === 6) {
-    //     alert('重新登录')
-    //   } else {
-    //     alert('请求错误')
-    //   }
-    // }).catch(() => {
-    //   alert('服务器错误')
-    // })
   }
 
   deletePaperRequest() {
@@ -56,20 +35,6 @@ class PapersList extends Component {
       message.success('删除成功！')
       this.getPapersListRequest()
     })
-
-    // Axios.delete('/exam/paper/delete?paperId=' + this.state.deletePaper.id)
-    //   .then((res) => {
-    //     if (res.data.code === 1) {
-    //       message.success('删除成功！')
-    //       this.getPapersListRequest()
-    //     } else if (res.data.code === 6) {
-    //       alert('重新登录')
-    //     } else {
-    //       alert('请求错误')
-    //     }
-    //   }).catch(() => {
-    //     alert('服务器错误')
-    //   })
   }
 
 
@@ -125,29 +90,12 @@ class PapersList extends Component {
                   newState = ANSWERING
                 }
               }
-              AJAX.POST('/exam/paper/changePaperState', {
+              AJAX.POST('/exam/paper/changeState', {
                 paperId: record.id,
                 state: newState
               }, (res) => {
                 message.success('变更成功！')
               })
-
-              // Axios.post('/exam/paper/changePaperState', {
-              //   paperId: record.id,
-              //   state: newState
-              // })
-              //   .then((res) => {
-              //     if (res.data.code === 1) {
-              //       message.success('变更成功！')
-              //     } else if (res.data.code === 6) {
-              //       alert('重新登录')
-              //     } else {
-              //       alert('请求错误')
-              //     }
-              //   }).catch(() => {
-              //     alert('服务器错误')
-              //     this.getPapersListRequest()
-              //   })
             }}
           />
         );
@@ -160,7 +108,7 @@ class PapersList extends Component {
         <Space size="middle">
           <a onClick={() => {
             this.props.history.push({
-              pathname: '/editProblem',
+              pathname: '/editPaper',
               paperId: record.id
             })
           }}>编辑试题</a>
@@ -178,10 +126,6 @@ class PapersList extends Component {
     },
   ];
 
-  handleOk = e => {
-    this.deletePaperRequest()
-  };
-
   render() {
     return (
       <div>
@@ -194,7 +138,7 @@ class PapersList extends Component {
         <Modal
           title={'删除试卷'}
           visible={this.state.deletePaper != null}
-          onOk={this.handleOk}
+          onOk={e=>{this.deletePaperRequest()}}
           onCancel={() => {
             this.setState({
               deletePaper: null,
@@ -210,4 +154,4 @@ class PapersList extends Component {
   }
 }
 
-export default withRouter(PapersList)
+export default withRouter(PaperList)

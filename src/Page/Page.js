@@ -31,8 +31,8 @@ class Page extends Component {
 
     componentDidMount() {
         let needNotLoginpages = new Set(['/login', '/changePassword', '/register'])
-        Axios.get('/exam/user/getUserDetail').then((res) => {
-            if (res.data.code === 1) {
+        Axios.get('/exam/user/getUserInfo').then((res) => {
+            if (res.data.code === 101) {
                 const action = handleGetUserInfAction(res.data.object, res.data.code)
                 store.dispatch(action)
             } else if (res.data.code === 6) {

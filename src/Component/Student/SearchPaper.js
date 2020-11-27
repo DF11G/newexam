@@ -3,7 +3,9 @@ import { withRouter } from "react-router-dom";
 import { Row, Col, Input, Button, PageHeader, Statistic, Form } from 'antd';
 import "antd/dist/antd.css"
 import '../Common/Common.css'
+import '../../Enum/PaperStateEnum'
 import * as AJAX from '../../Util/Ajax'
+import { ANSWERING, READY_TO_ANSWERING } from '../../Enum/PaperStateEnum';
 
 const { Search } = Input;
 
@@ -12,8 +14,7 @@ class SearchPaper extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            paper: null,
-            isUseful: 0
+            paper: null
         }
     }
 
@@ -22,45 +23,7 @@ class SearchPaper extends Component {
             this.setState({
                 paper: res.data.object
             })
-            if (res.data.object.state === 2 || res.data.object.state === 3) {
-                this.setState({
-                    isUseful: 1
-                })
-            } else {
-                this.setState({
-                    isUseful: 0
-                })
-            }
         })
-
-        // Axios.get('/exam/paper/getByCode?code=' + code).then((res) => {
-        //     if (res.data.code === 1) {
-        //         this.setState({
-        //             paper: res.data.object
-        //         })
-        //         if (res.data.object.state === 2 || res.data.object.state === 3) {
-        //             this.setState({
-        //                 isUseful: 1
-        //             })
-        //         } else {
-        //             this.setState({
-        //                 isUseful: 0
-        //             })
-        //         }
-        //     } else if (res.data.code === 5) {
-        //         alert('没找到此试卷')
-        //     } else if (res.data.code === 6) {
-        //         alert('重新登录')
-        //     } else {
-        //         alert('请求错误')
-        //     }
-        // }).catch(() => {
-        //     alert('服务器错误')
-        // })
-    }
-
-    onSearch = (value) => {
-        this.searchPaperRequest(value)
     }
 
     showPaper = (props) => {
@@ -68,7 +31,6 @@ class SearchPaper extends Component {
             return null
         } else {
             let paper = props.paper
-            let a = this
             return (
                 <div>
                     <Row>
@@ -83,18 +45,16 @@ class SearchPaper extends Component {
                         </Col>
                         <Col span={6}>
                             <br></br>
-                            {a.state.isUseful ?
+                            {(paper.state === ANSWERING || paper.state === READY_TO_ANSWERING) ?
                                 <Button type="primary" onClick={() => {
                                     this.props.history.push({
-                                        pathname: '/answerPaper',
+                                        pathname: '/createPaperAnswer',
                                         paper: this.state.paper
                                     })
-                                }}>开始作答</Button> : <Button type="primary" disabled onClick={() => {
-                                    this.props.history.push({
-                                        pathname: '/answerPaper',
-                                        paper: this.state.paper
-                                    })
-                                }}>试卷已过期</Button>}
+                                }}>开始作答</Button> 
+                                : 
+                                <Button type="primary" disabled>试卷已过期</Button>
+                            }
                         </Col>
                     </Row>
                 </div>
@@ -113,16 +73,13 @@ class SearchPaper extends Component {
                 />
                 <Form
                     className="login-form"
-                    initialValues={{
-                        remember: true,
-                    }}
                 >
                     <Search
                         placeholder="输入试卷编号"
                         allowClear
                         enterButton="搜索"
                         size="large"
-                        onSearch={this.onSearch}
+                        onSearch={this.searchPaperRequest}
                         onChange={() => {
                             this.setState({
                                 paper: null

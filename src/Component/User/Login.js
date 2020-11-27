@@ -106,7 +106,7 @@ class Login extends Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               登录
             </Button>
-            Or <Link to="register">立即注册!</Link>
+            Or <Link to="register">学生注册!</Link>
           </Form.Item>
         </Form>
       </div >

@@ -9,25 +9,12 @@ import { handleUserLogout } from '../../Store/ActionCreators'
 
 
 function LoginMenu(props) {
-  let logout = () => {
+  let logoutRequest = () => {
     AJAX.GET('/exam/user/logout', (res) => {
       const action = handleUserLogout()
       store.dispatch(action)
       props.history.push('/login')
     })
-
-    // Axios.get('/exam/user/logout').then((res) => {
-    //   console.log(res)
-    //   if (res.data.code === 101) {
-    //     const action = handleUserLogout()
-    //     store.dispatch(action)
-    //     props.history.push('/login')
-    //   } else {
-    //     alert('请求错误')
-    //   }
-    // }).catch((e) => {
-    //   alert(e)
-    // })
   }
   let teacherMenu = (
     <Menu>
@@ -37,7 +24,7 @@ function LoginMenu(props) {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/papersList">
+        <Link to="/paperList">
           管理试卷
         </Link>
       </Menu.Item>
@@ -46,7 +33,7 @@ function LoginMenu(props) {
           修改密码
         </Link>
       </Menu.Item>
-      <Menu.Item danger onClick={logout}>登出</Menu.Item>
+      <Menu.Item danger onClick={logoutRequest}>登出</Menu.Item>
     </Menu>
   );
   let studentMenu = (
@@ -66,7 +53,7 @@ function LoginMenu(props) {
           修改密码
         </Link>
       </Menu.Item>
-      <Menu.Item danger onClick={logout}>登出</Menu.Item>
+      <Menu.Item danger onClick={logoutRequest}>登出</Menu.Item>
     </Menu>
   );
   let menu;
@@ -74,8 +61,6 @@ function LoginMenu(props) {
     menu = teacherMenu
   } else if (props.type === 2) {
     menu = studentMenu
-  } else {
-    menu = null
   }
   return (
     <Dropdown overlay={menu}>

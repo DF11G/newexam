@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Page from './Page'
+
 import Login from '../Component/User/Login'
 import Register from '../Component/User/Register'
 import ChangePassword from '../Component/User/ChangePassword'
+
 import CreatePaper from '../Component/Teacher/CreatePaper'
-import PapersList from '../Component/Teacher/PapersList'
-import EditProblem from '../Component/Teacher/EditProblem'
+import PaperList from '../Component/Teacher/PaperList'
+import EditPaper from '../Component/Teacher/EditPaper'
+
 import SearchPaper from '../Component/Student/SearchPaper'
-import AnswerPaper from '../Component/Student/AnswerPaper'
+import CreatePaperAnswer from '../Component/Student/CreatePaperAnswer'
 import AnswerProblem from '../Component/Student/AnswerProblem'
 import PaperAnswerList from '../Component/Student/PaperAnswerList'
 
-class BasicRoute extends Component {
+class BasicRouter extends Component {
 
     constructor(props) {
         super(props)
@@ -23,6 +26,7 @@ class BasicRoute extends Component {
             <BrowserRouter>
                 <Switch>
                     <Page>
+
                         <Route
                             path='/login' exact component={Login}
                         ></Route>
@@ -32,20 +36,22 @@ class BasicRoute extends Component {
                         <Route
                             path='/changePassword' component={ChangePassword}
                         ></Route>
+
                         <Route
                             path='/createPaper' component={CreatePaper}
                         ></Route>
                         <Route
-                            path='/papersList' component={PapersList}
+                            path='/paperList' component={PaperList}
                         ></Route>
                         <Route
-                            path='/editProblem' component={EditProblem}
+                            path='/editPaper' component={EditPaper}
                         ></Route>
+
                         <Route
                             path='/searchPaper' component={SearchPaper}
                         ></Route>
                         <Route
-                            path='/answerPaper' component={AnswerPaper}
+                            path='/createPaperAnswer' component={CreatePaperAnswer}
                         ></Route>
                         <Route
                             path='/answerProblem' component={AnswerProblem}
@@ -53,6 +59,7 @@ class BasicRoute extends Component {
                         <Route
                             path='/paperAnswerList' component={PaperAnswerList}
                         ></Route>
+                        
                     </Page>
                 </Switch>
             </BrowserRouter>
@@ -61,4 +68,4 @@ class BasicRoute extends Component {
 }
 
 
-export default BasicRoute;
+export default BasicRouter;

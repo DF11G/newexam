@@ -5,15 +5,12 @@ import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
 import * as AJAX from '../../Util/Ajax'
 import '../Common/Common.css'
-
-const CHOICE_PROBLEM_TYPE = 1
-const MATERIAL_PROBLEM_TYPE = 2
-const POLYMERIZATION_PROBLEM_TYPE = 3
+import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../Enum/ProblemTypeEnum'
 
 const { TextArea } = Input;
 
 
-class CreateProblem extends Component {
+class AddProblem extends Component {
 
     constructor(props) {
         super(props)
@@ -31,16 +28,9 @@ class CreateProblem extends Component {
 
 
     onFinish = (values) => {
-        let url;
-        if (values.type === POLYMERIZATION_PROBLEM_TYPE) {
-            url = '/addPolymerizationProblem'
-        } else {
-            url = '/addProblem'
-        }
-
-        AJAX.PUT('/exam/paper' + url, {
+        AJAX.PUT('/exam/paper/addProblem', {
             paperId: this.props.paperId,
-            polymerizationProblemId: this.props.polymerizationProblemId,
+            fatherProblemId: this.props.fatherProblemId,
             title: values.title,
             material: values.material,
             type: values.type,
@@ -132,7 +122,7 @@ class CreateProblem extends Component {
     otherForm = (props) => {
         const { collection, inputVisible, inputValue } = this.state;
         const tagChild = collection.map(this.forMap);
-        if (props.type === CHOICE_PROBLEM_TYPE) {
+        if (props.type === CHOICE_PROBLEM) {
             return (<Form.Item
                 label="选项"
             >
@@ -162,20 +152,20 @@ class CreateProblem extends Component {
         }
     }
 
-    problemTypeRadio = (polymerizationProblemId) => {
-        if (polymerizationProblemId != null) {
+    problemTypeRadio = (fatherProblemId) => {
+        if (fatherProblemId != null) {
             return (
                 <>
-                    <Radio.Button value={CHOICE_PROBLEM_TYPE}>选择题</Radio.Button>
-                    <Radio.Button value={MATERIAL_PROBLEM_TYPE}>材料题</Radio.Button>
+                    <Radio.Button value={CHOICE_PROBLEM}>选择题</Radio.Button>
+                    <Radio.Button value={MATERIAL_PROBLEM}>材料题</Radio.Button>
                 </>
             )
         } else {
             return (
                 <>
-                    <Radio.Button value={CHOICE_PROBLEM_TYPE}>选择题</Radio.Button>
-                    <Radio.Button value={MATERIAL_PROBLEM_TYPE}>材料题</Radio.Button>
-                    <Radio.Button value={POLYMERIZATION_PROBLEM_TYPE}>组合题</Radio.Button>
+                    <Radio.Button value={CHOICE_PROBLEM}>选择题</Radio.Button>
+                    <Radio.Button value={MATERIAL_PROBLEM}>材料题</Radio.Button>
+                    <Radio.Button value={FATHER_PROBLEM}>组合题</Radio.Button>
                 </>
             )
         }
@@ -205,7 +195,7 @@ class CreateProblem extends Component {
                                 })
                             }}
                             >
-                                {this.problemTypeRadio(this.props.polymerizationProblemId)}
+                                {this.problemTypeRadio(this.props.fatherProblemId)}
                             </Radio.Group>
                         </Form.Item>
                         <Form.Item
@@ -235,4 +225,4 @@ class CreateProblem extends Component {
     }
 }
 
-export default withRouter(CreateProblem)
+export default withRouter(AddProblem)

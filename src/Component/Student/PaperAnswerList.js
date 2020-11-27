@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Table, PageHeader, Tag } from 'antd';
 import * as AJAX from '../../Util/Ajax'
+import { FINISH, OVERTIME } from '../../Enum/PaperAnswerStateEnum'
 
 import '../Common/Common.css'
 
@@ -23,36 +24,20 @@ class PaperAnswerList extends Component {
       this.setState({
         data: res.data.object
       })
-      console.log(res.data.object)
     })
-
-    // Axios.get('/exam/answer/getPaperAnswers').then((res) => {
-    //   if (res.data.code === 1) {
-    //     this.setState({
-    //       data: res.data.object
-    //     })
-    //     console.log(res.data.object)
-    //   } else if (res.data.code === 6) {
-    //     alert('重新登录')
-    //   } else {
-    //     alert('请求错误')
-    //   }
-    // }).catch(() => {
-    //   alert('服务器错误')
-    // })
   }
 
   columns = [
     {
       title: '试卷标题',
-      dataIndex: ['paper', 'title'],
+      dataIndex: 'paperTitle',
     },
     {
       title: '答卷状态',
       dataIndex: 'state',
       render: (text, record) => {
         let color, content;
-        if (record.state === 2) {
+        if (record.state === FINISH || record.state === OVERTIME) {
           color = 'green'
           content = '作答完成'
         } else {
@@ -70,16 +55,20 @@ class PaperAnswerList extends Component {
       title: '动作',
       dataIndex: 'action',
       render: (text, record) => {
-        return (
-          <div>
-            <a onClick={() => {
-              this.props.history.push({
-                pathname: '/answerProblem',
-                paperAnswerId: record.id
-              })
-            }}>继续答题</a>
-          </div>
-        )
+        if (record.state === FINISH || record.state === OVERTIME) {
+          return null;
+        } else {
+          return (
+            <div>
+              <a onClick={() => {
+                this.props.history.push({
+                  pathname: '/answerProblem',
+                  paperAnswerId: record.id
+                })
+              }}>继续答题</a>
+            </div>
+          )
+        }
       }
     },
   ];
