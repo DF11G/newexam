@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Input, PageHeader, InputNumber, Form, Tag, Button, Modal } from 'antd';
 import "antd/dist/antd.css"
-import * as AJAX from '../../Util/Ajax'
-import '../Common/Common.css'
-
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
+
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
 
 class CreatePaper extends Component {
 

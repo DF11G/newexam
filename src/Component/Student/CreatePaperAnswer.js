@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import * as AJAX from '../../Util/Ajax'
 import { PageHeader, Form, Input, Button, Descriptions } from 'antd';
 import "antd/dist/antd.css"
+
+import * as AJAX from '../../util/Ajax'
 import '../Common/Common.css'
 
 class CreatePaperAnswer extends Component {

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Collapse, PageHeader, Button, Checkbox } from 'antd';
-import "antd/dist/antd.css"
-import * as AJAX from '../../Util/Ajax'
-import '../Common/Common.css'
-import CreateProblem from './AddProblem'
 import { DeleteOutlined } from '@ant-design/icons';
-import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../Enum/ProblemTypeEnum'
-
+import "antd/dist/antd.css"
 const { Panel } = Collapse;
+
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
+import CreateProblem from './AddProblem'
+import {CHOICE_PROBLEM, FATHER_PROBLEM} from '../../enum/ProblemTypeEnum'
 
 class EditPaper extends Component {
 

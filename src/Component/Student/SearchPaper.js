@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Row, Col, Input, Button, PageHeader, Statistic, Form } from 'antd';
 import "antd/dist/antd.css"
-import '../Common/Common.css'
-import '../../Enum/PaperStateEnum'
-import * as AJAX from '../../Util/Ajax'
-import { ANSWERING, READY_TO_ANSWERING } from '../../Enum/PaperStateEnum';
+
+import '../common/Common.css'
+import * as AJAX from '../../util/Ajax'
+import { ANSWERING, READY_TO_ANSWERING } from '../../enum/PaperStateEnum';
 
 const { Search } = Input;
 

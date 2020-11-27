@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom"
 import { Layout } from 'antd';
 import "antd/dist/antd.css"
-import UserInfoMenu from '../Component/Common/UserInfoMenu'
+import UserInfoMenu from '../component/common/UserInfoMenu'
 import Axios from 'axios'
-import store from '../Store/Index'
-import { handleGetUserInfAction } from '../Store/ActionCreators'
+import store from '../store/Index'
+import { handleGetUserInfAction } from '../store/ActionCreators'
 import './Page.css'
+
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,7 +36,7 @@ class Page extends Component {
             if (res.data.code === 101) {
                 const action = handleGetUserInfAction(res.data.object, res.data.code)
                 store.dispatch(action)
-            } else if (res.data.code === 6) {
+            } else if (res.data.code === 103) {
                 if (!needNotLoginpages.has(this.props.history.location.pathname)) {
                     this.props.history.push('/login')
                 }

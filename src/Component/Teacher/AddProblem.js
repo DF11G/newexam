@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Button, Modal, Form, Radio, Input, Tag, Upload } from 'antd';
+import { Button, Modal, Form, Radio, Input, Tag } from 'antd';
 import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
-import * as AJAX from '../../Util/Ajax'
-import '../Common/Common.css'
-import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../Enum/ProblemTypeEnum'
-
 const { TextArea } = Input;
 
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
+import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../enum/ProblemTypeEnum'
 
 class AddProblem extends Component {
 

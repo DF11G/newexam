@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect, withRouter } from "react-router-dom";
 import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
-import * as AJAX from '../../Util/Ajax'
-import '../Common/Common.css'
-import {CREATING, READY_TO_ANSWERING, ANSWERING, END_ANSWER} from '../../Enum/PaperStateEnum'
+
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
+import {CREATING, READY_TO_ANSWERING, ANSWERING, END_ANSWER} from '../../enum/PaperStateEnum'
 
 class PaperList extends Component {
 

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import "antd/dist/antd.css"
-import * as AJAX from '../../Util/Ajax'
 import { withRouter } from "react-router-dom"
 import { Form, Input, Button, PageHeader } from 'antd';
+
+import * as AJAX from '../../util/Ajax'
 import "./ChangePassword.css"
-import store from '../../Store/Index'
-import { handleUserLogout } from '../../Store/ActionCreators'
-import '.././Common/Common.css'
+import store from '../../store/Index'
+import { handleUserLogout } from '../../store/ActionCreators'
+import '../common/Common.css'
 
 
 class ChangePassword extends Component {

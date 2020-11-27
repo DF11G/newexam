@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from "react-router-dom"
-import * as AJAX from '../../Util/Ajax'
 import { Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import "antd/dist/antd.css"
-import store from '../../Store/Index'
-import { handleUserLogout } from '../../Store/ActionCreators'
 
+import store from '../../store/Index'
+import * as AJAX from '../../util/Ajax'
+import { handleUserLogout } from '../../store/ActionCreators'
 
 function LoginMenu(props) {
   let logoutRequest = () => {

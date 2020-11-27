@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import * as AJAX from '../../Util/Ajax'
-import { PageHeader, Statistic, Row, Input, Radio, Form, Button, message } from 'antd';
+import { PageHeader, Input, Radio, Form, Button, message } from 'antd';
 import "antd/dist/antd.css"
-import '../Common/Common.css'
-
-import ProblemShow from './ProblemShow'
-import '../../Enum/ProblemTypeEnum'
 const { TextArea } = Input;
+
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
+import ProblemShow from './ProblemShow'
+import '../../enum/ProblemTypeEnum'
 
 class AnswerProblem extends Component {
 

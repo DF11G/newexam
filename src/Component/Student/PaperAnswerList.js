@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Table, PageHeader, Tag } from 'antd';
-import * as AJAX from '../../Util/Ajax'
-import { FINISH, OVERTIME } from '../../Enum/PaperAnswerStateEnum'
 
-import '../Common/Common.css'
+import * as AJAX from '../../util/Ajax'
+import { FINISH, OVERTIME } from '../../enum/PaperAnswerStateEnum'
+import '../common/Common.css'
 
 class PaperAnswerList extends Component {
 

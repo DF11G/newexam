@@ -3,10 +3,12 @@ import { withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
 import "antd/dist/antd.css"
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import store from '../../Store/Index'
-import { handleGetUserInfAction } from '../../Store/ActionCreators'
-import '.././Common/Common.css'
-import * as AJAX from '../../Util/Ajax'
+
+import store from '../../store/Index'
+import { handleGetUserInfAction } from '../../store/ActionCreators'
+import '../common/Common.css'
+import * as AJAX from '../../util/Ajax'
+
 class Login extends Component {
 
   constructor(props) {

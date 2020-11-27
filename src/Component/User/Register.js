@@ -3,12 +3,13 @@ import "antd/dist/antd.css"
 import { withRouter } from "react-router-dom"
 import { Form, Input, Tooltip, Button, Select, PageHeader } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+
+
 import "./Register.css"
-import '.././Common/Common.css'
-import store from '../../Store/Index'
-import { handleGetUserInfAction } from '../../Store/ActionCreators'
-import * as AJAX from '../../Util/Ajax'
-const { Option } = Select
+import '../common/Common.css'
+import store from '../../store/Index'
+import { handleGetUserInfAction } from '../../store/ActionCreators'
+import * as AJAX from '../../util/Ajax'
 
 class Register extends Component {
 
