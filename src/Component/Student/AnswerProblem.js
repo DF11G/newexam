@@ -26,7 +26,7 @@ class AnswerProblem extends Component {
             this.props.history.push('/searchPaper')
         } else {
             //根据路由中的答卷id获取答卷
-            this.getPaperAnswerRequest(this.props.history.location.paperAnswerId)
+            this.getProblemRequest(this.props.history.location.paperAnswerId)
             //设置定时器
             this.timerID = setInterval(
                 () => this.tick(),
@@ -40,21 +40,11 @@ class AnswerProblem extends Component {
         clearInterval(this.timerID);
     }
 
-    getPaperAnswerRequest = (paperAnswerId) => {
-        AJAX.GET('/exam/answer/getPaperAnswerDetail?paperAnswerId=' + paperAnswerId, (res) => {
-            this.setState({
-                paperAnswer: res.data.object,
-                remainTime: res.data.object.paper.time * 60 - res.data.object.totalTime
-            })
-            //根据答卷获取当前作答的题目
-            this.getProblemRequest(res.data.object)
-        }, this.props.history)
-    }
-
-    getProblemRequest = (paperAnswer) => {
-        AJAX.GET('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswer.id, (res) => {
+    getProblemRequest = (paperAnswerId) => {
+        AJAX.GET('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswerId, (res) => {
             if (res.data.object != null) {
                 this.setState({
+                    paperAnswer: res.data.object,
                     startTime: new Date.now(),
                     answeringProblem: res.data.object,
                     firstEditTime: null,
@@ -97,8 +87,7 @@ class AnswerProblem extends Component {
         if (props.problem == null) return null
         let content
         if (props.problem.type === 1) {
-            let radios =
-                JSON.parse(props.problem.answer).map((answer) => <Radio value={answer}>{answer}</Radio>)
+            let radios = JSON.parse(props.problem.answer).map((answer) => <Radio value={answer}>{answer}</Radio>)
             content = (
                 <div>
                     <Radio.Group>

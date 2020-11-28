@@ -47,6 +47,9 @@ class CreatePaperAnswer extends Component {
         if (props.paper == null) {
             return null
         } else {
+            if (props.paper.collection) {
+                
+            }
             let formItems = JSON.parse(props.paper.collection).map((item) => {
                 return (
                     <Form.Item

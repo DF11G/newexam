@@ -36,7 +36,7 @@ class Login extends Component {
       store.dispatch(action)
       message.success('登陆成功')
       if (res.data.object.type === 1) {
-        this.props.history.push('/papersList')
+        this.props.history.push('/paperList')
       } else {
         this.props.history.push('/searchPaper')
       }

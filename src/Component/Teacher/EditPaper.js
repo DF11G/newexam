@@ -29,7 +29,6 @@ class EditPaper extends Component {
 
     getProblemsRequest = () => {
         AJAX.GET('/exam/paper/getByPaperId?paperId=' + this.props.history.location.paperId, (res) => {
-            console.log(res.data.object)
             this.setState({
                 paper: res.data.object
             })
@@ -103,7 +102,6 @@ class EditPaper extends Component {
     problemList = () => {
         if (this.state.paper != null) {
             let problems = this.state.paper.problems
-            console.log(problems)
             let other = (problem) => {
                 if (problem.type === CHOICE_PROBLEM) {
                     let choices = JSON.parse(problem.answer)

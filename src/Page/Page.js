@@ -59,12 +59,12 @@ class Page extends Component {
                             <UserInfoMenu name={this.state.name} type={this.state.type} history={this.props.history}></UserInfoMenu>
                         </div>
                     </Header>
-                    <Content style={{ padding: '0 50px' }}>
+                    <Content className="content" style={{ padding: '0 50px' }}>
                         <div>
                             {this.props.children}
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                    <Footer className="footer" style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
                 </Layout>
 
             </div>

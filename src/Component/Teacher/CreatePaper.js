@@ -53,7 +53,6 @@ class CreatePaper extends Component {
     if (inputValue && collection.indexOf(inputValue) === -1) {
       collection = [...collection, inputValue];
     }
-    console.log(collection);
     this.setState({
       collection,
       inputVisible: false,
