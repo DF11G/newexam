@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import "antd/dist/antd.css"
 import { withRouter } from "react-router-dom"
 import { Form, Input, Button, PageHeader } from 'antd';
-
 import * as AJAX from '../../util/Ajax'
-import "./ChangePassword.css"
 import store from '../../store/Index'
 import { handleUserLogout } from '../../store/ActionCreators'
 import '../common/Common.css'
@@ -26,7 +24,7 @@ class ChangePassword extends Component {
       const action = handleUserLogout()
       store.dispatch(action)
       this.props.history.push('/login')
-    })
+    }, this.props.history)
   };
 
   render() {

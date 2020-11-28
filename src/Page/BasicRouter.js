@@ -5,11 +5,9 @@ import Page from './Page'
 import Login from '../component/user/Login'
 import Register from '../component/user/Register'
 import ChangePassword from '../component/user/ChangePassword'
-
 import CreatePaper from '../component/teacher/CreatePaper'
 import PaperList from '../component/teacher/PaperList'
 import EditPaper from '../component/teacher/EditPaper'
-
 import SearchPaper from '../component/student/SearchPaper'
 import CreatePaperAnswer from '../component/student/CreatePaperAnswer'
 import AnswerProblem from '../component/student/AnswerProblem'
@@ -26,7 +24,6 @@ class BasicRouter extends Component {
             <BrowserRouter>
                 <Switch>
                     <Page>
-
                         <Route
                             path='/login' exact component={Login}
                         ></Route>

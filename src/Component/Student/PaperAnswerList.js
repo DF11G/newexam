@@ -24,7 +24,7 @@ class PaperAnswerList extends Component {
       this.setState({
         data: res.data.object
       })
-    })
+    }, this.props.history)
   }
 
   columns = [

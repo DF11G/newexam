@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import "antd/dist/antd.css"
 import { withRouter } from "react-router-dom"
-import { Form, Input, Tooltip, Button, Select, PageHeader } from 'antd';
+import { Form, Input, Tooltip, Button, PageHeader } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-
-
-import "./Register.css"
 import '../common/Common.css'
 import store from '../../store/Index'
 import { handleGetUserInfAction } from '../../store/ActionCreators'
@@ -26,7 +23,7 @@ class Register extends Component {
       const action = handleGetUserInfAction(res.data.object, res.data.code)
       store.dispatch(action)
       this.props.history.push('/login')
-    })
+    }, this.props.history)
   };
 
   render() {

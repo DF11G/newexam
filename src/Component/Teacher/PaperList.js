@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect, withRouter } from "react-router-dom";
 import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
-
 import * as AJAX from '../../util/Ajax'
 import '../common/Common.css'
-import {CREATING, READY_TO_ANSWERING, ANSWERING, END_ANSWER} from '../../enum/PaperStateEnum'
+import { CREATING, READY_TO_ANSWERING, ANSWERING, END_ANSWER } from '../../enum/PaperStateEnum'
 
 class PaperList extends Component {
 
@@ -28,14 +27,14 @@ class PaperList extends Component {
       this.setState({
         deletePaper: null,
       })
-    })
+    }, this.props.history)
   }
 
   deletePaperRequest() {
     AJAX.DELETE('/exam/paper/delete?paperId=' + this.state.deletePaper.id, (res) => {
       message.success('删除成功！')
       this.getPapersListRequest()
-    })
+    }, this.props.history)
   }
 
 
@@ -96,7 +95,7 @@ class PaperList extends Component {
                 state: newState
               }, (res) => {
                 message.success('变更成功！')
-              })
+              }, this.props.history)
             }}
           />
         );
@@ -139,7 +138,7 @@ class PaperList extends Component {
         <Modal
           title={'删除试卷'}
           visible={this.state.deletePaper != null}
-          onOk={e=>{this.deletePaperRequest()}}
+          onOk={e => { this.deletePaperRequest() }}
           onCancel={() => {
             this.setState({
               deletePaper: null,

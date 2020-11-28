@@ -3,11 +3,9 @@ import { withRouter } from "react-router-dom";
 import { Input, PageHeader, InputNumber, Form, Tag, Button, Modal } from 'antd';
 import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
-
 import * as AJAX from '../../util/Ajax'
 import '../common/Common.css'
-
+const { TextArea } = Input;
 class CreatePaper extends Component {
 
   constructor(props) {
@@ -28,11 +26,11 @@ class CreatePaper extends Component {
       "time": values.time,
       "collection": JSON.stringify(this.state.collection)
     }, (res) => {
-        this.setState({
-          paperId: res.data.object.id,
-          modalVisible: true
-        })
-    })
+      this.setState({
+        paperId: res.data.object.id,
+        modalVisible: true
+      })
+    }, this.props.history)
   }
 
   handleClose = removedTag => {

@@ -1,14 +1,16 @@
 import Axios from 'axios'
-import {SUCCESS, NEED_TO_LOGIN} from '../enum/ResultEnum'
+import * as ResultEnum from '../enum/ResultEnum'
+import { message } from 'antd';
+import { Breadcrumb } from 'antd'
 
 
-export function failedProcess(code, history) {
+export function failedProcess(code, history, msg) {
     switch (code) {
-        case NEED_TO_LOGIN:
+        case ResultEnum.NEED_TO_LOGIN:
             history.push('/login');
             break;
         default:
-            // 同一的处理
+            message.error(msg)
             break;
     }
 }
@@ -16,10 +18,10 @@ export function failedProcess(code, history) {
 export function ajaxProcess(ajaxMethod, method, history) {
     ajaxMethod.then((res) => {
         let code = res.data.code;
-        if (code === SUCCESS) {
+        if (code === ResultEnum.SUCCESS) {
             method(res)
         } else {
-            failedProcess(code, history)
+            failedProcess(code, history, res.data.msg)
         }
     }).catch((err) => {
         console.error(err)

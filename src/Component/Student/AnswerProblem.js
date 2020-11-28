@@ -1,14 +1,12 @@
+import * as AJAX from '../../util/Ajax'
+import '../common/Common.css'
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { PageHeader, Input, Radio, Form, Button, message } from 'antd';
 import "antd/dist/antd.css"
-const { TextArea } = Input;
-
-import * as AJAX from '../../util/Ajax'
-import '../common/Common.css'
 import ProblemShow from './ProblemShow'
 import '../../enum/ProblemTypeEnum'
-
+const { TextArea } = Input;
 class AnswerProblem extends Component {
 
     constructor(props) {
@@ -50,7 +48,7 @@ class AnswerProblem extends Component {
             })
             //根据答卷获取当前作答的题目
             this.getProblemRequest(res.data.object)
-        })
+        }, this.props.history)
     }
 
     getProblemRequest = (paperAnswer) => {
@@ -61,7 +59,7 @@ class AnswerProblem extends Component {
                     answeringProblem: res.data.object,
                     firstEditTime: null,
                     isEdit: false
-                })
+                }, this.props.history)
             } else {
                 message.warning('This is a warning message')
             }
@@ -78,7 +76,7 @@ class AnswerProblem extends Component {
             answer: answer
         }, (res) => {
             this.getProblemRequest(this.state.paperAnswer)
-        })
+        }, this.props.history)
     }
 
     tick() {
@@ -117,7 +115,7 @@ class AnswerProblem extends Component {
                                 isEdit: true,
                                 isEditTime: 0
                             })
-                            if(this.state.firstEditTime == null) {
+                            if (this.state.firstEditTime == null) {
                                 this.setState({
                                     firstEditTime: new Date.now()
                                 })

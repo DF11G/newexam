@@ -23,7 +23,7 @@ class SearchPaper extends Component {
             this.setState({
                 paper: res.data.object
             })
-        })
+        }, this.props.history)
     }
 
     showPaper = (props) => {
@@ -51,8 +51,8 @@ class SearchPaper extends Component {
                                         pathname: '/createPaperAnswer',
                                         paper: this.state.paper
                                     })
-                                }}>开始作答</Button> 
-                                : 
+                                }}>开始作答</Button>
+                                :
                                 <Button type="primary" disabled>试卷已过期</Button>
                             }
                         </Col>

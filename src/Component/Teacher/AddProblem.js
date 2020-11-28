@@ -1,14 +1,12 @@
+import * as AJAX from '../../util/Ajax'
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Button, Modal, Form, Radio, Input, Tag } from 'antd';
 import "antd/dist/antd.css"
 import { PlusOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
-
-import * as AJAX from '../../util/Ajax'
 import '../common/Common.css'
-import {CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM} from '../../enum/ProblemTypeEnum'
-
+import { CHOICE_PROBLEM, MATERIAL_PROBLEM, FATHER_PROBLEM } from '../../enum/ProblemTypeEnum'
+const { TextArea } = Input;
 class AddProblem extends Component {
 
     constructor(props) {
@@ -37,27 +35,7 @@ class AddProblem extends Component {
         }, (res) => {
             this.props.refreshProblems()
             this.props.visibleChange()
-        })
-
-        // Axios.put('/exam/paper' + url, {
-        //     paperId: this.props.paperId,
-        //     polymerizationProblemId: this.props.polymerizationProblemId,
-        //     title: values.title,
-        //     material: values.material,
-        //     type: values.type,
-        //     answer: JSON.stringify(this.state.collection)
-        // }).then((res) => {
-        //     if (res.data.code === 1) {
-        //         this.props.refreshProblems()
-        //         this.props.visibleChange()
-        //     } else if (res.data.code === 5) {
-        //         alert('没有')
-        //     } else {
-        //         alert('请求错误')
-        //     }
-        // }).catch(() => {
-        //     alert('服务器错误')
-        // })
+        }, this.props.history)
     }
 
     handleOk = () => {

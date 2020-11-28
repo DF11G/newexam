@@ -8,7 +8,33 @@
     width: 100%;
 }
 
+.login-form {
+    min-height: 280px;
+    padding: 24px;
+    background: #fff;
+}
 
+.login-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .login-form-forgot {
+    float: left;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.changePassword-form {
+    min-height: 280px;
+    padding: 24px;
+    background: #fff;
+}
+
+.changePassword-form-button {
+    width: 100%;
+}
 
 .login-form {
     min-height: 280px;
@@ -25,5 +51,15 @@
 }
 
 .login-form-button {
+    width: 100%;
+}
+
+.register-form {
+    min-height: 280px;
+    padding: 24px;
+    background: #fff;
+}
+
+.register-form-button {
     width: 100%;
 }

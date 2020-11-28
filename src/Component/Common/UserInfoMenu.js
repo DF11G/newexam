@@ -14,7 +14,7 @@ function LoginMenu(props) {
       const action = handleUserLogout()
       store.dispatch(action)
       props.history.push('/login')
-    })
+    }, this.props.history)
   }
   let teacherMenu = (
     <Menu>

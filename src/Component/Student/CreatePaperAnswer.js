@@ -4,7 +4,7 @@ import { PageHeader, Form, Input, Button, Descriptions } from 'antd';
 import "antd/dist/antd.css"
 
 import * as AJAX from '../../util/Ajax'
-import '../Common/Common.css'
+import '../common/Common.css'
 
 class CreatePaperAnswer extends Component {
 
@@ -27,7 +27,7 @@ class CreatePaperAnswer extends Component {
                 pathname: '/answerProblem',
                 paperAnswerId: res.data.object.id
             })
-        })
+        }, this.props.history)
     }
 
     showPaperInfo = (props) => {

@@ -1,15 +1,13 @@
+import * as AJAX from '../../util/Ajax'
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 import { Collapse, PageHeader, Button, Checkbox } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import "antd/dist/antd.css"
-const { Panel } = Collapse;
-
-import * as AJAX from '../../util/Ajax'
 import '../common/Common.css'
 import CreateProblem from './AddProblem'
-import {CHOICE_PROBLEM, FATHER_PROBLEM} from '../../enum/ProblemTypeEnum'
-
+import { CHOICE_PROBLEM, FATHER_PROBLEM } from '../../enum/ProblemTypeEnum'
+const { Panel } = Collapse
 class EditPaper extends Component {
 
     constructor(props) {
@@ -35,14 +33,14 @@ class EditPaper extends Component {
             this.setState({
                 paper: res.data.object
             })
-        })
+        }, this.props.history)
     }
 
     deleteProblemRequest = (paperId, problem) => {
         let url = '/exam/paper/deleteProblem?paperId=' + paperId + '&problemId=' + problem.id
         AJAX.DELETE(url, (res) => {
             this.getProblemsRequest()
-        })
+        }, this.props.history)
     }
 
     deleteButton = (problem) => (
