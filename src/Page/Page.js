@@ -6,7 +6,7 @@ import UserInfoMenu from '../component/common/UserInfoMenu'
 import Axios from 'axios'
 import store from '../store/Index'
 import { handleGetUserInfAction } from '../store/ActionCreators'
-import './Page.css'
+import '../component/common/Common.css'
 
 
 const { Header, Content, Footer } = Layout;

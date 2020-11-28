@@ -112,7 +112,6 @@ class CreatePaper extends Component {
           title="创建试卷"
         />
         <Form
-          name="login_login"
           className="login-form"
           onFinish={this.onFinish}
         >

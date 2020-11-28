@@ -41,20 +41,6 @@ class Login extends Component {
         this.props.history.push('/searchPaper')
       }
     }, this.props.history)
-
-
-    // AJAX.POST('/exam/user/loginCheck', { //这里是URL和数据
-    //   "account": values.account,
-    //   "password": values.password
-    // }, (res) => {//这里是需要执行的方法
-    //   const action = handleGetUserInfAction(res.data.object, res.data.code)
-    //   store.dispatch(action)
-    //   if (res.data.object.type === 1) {
-    //     this.props.history.push('/papersList')
-    //   } else {
-    //     this.props.history.push('/searchPaper')
-    //   }
-    // })
   }
 
   render() {
