@@ -2,19 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" name="viewport" width="device-width">
+  <meta charset="utf-8" name="viewport" content= "width=device-width,inital-scale=1.0">
   <title>考试系统</title>
-  <script>
-    window.onload = function () {
-      let dpr = window.devicePixelRatio;
-      let scale = 1 / dpr;
-      let width = document.documentElement.clientWidth;
-      let metaNode = document.querySelector('meta[name="viewport"]');
-      metaNode.setAttribute('content', 'width=device-width,inital- scale = ' + scale + ', user - scalable');
-      let htmlNode = document.querySelector('html');
-      htmlNode.style.fontSize = width * dpr + 'px';
-    }
-  </script>
 </head>
 
 <body>
